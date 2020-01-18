@@ -59,7 +59,7 @@ $ ansible-playbook --tags flannel step-2_firewall.yml
 Kubernetes Master Node / Worker Node にするサーバにデモむけファイルを配置。
 
 ```
-$ ansible-playbook step-3_copy-configs.yml
+$ ansible-playbook -C step-3_copy-configs.yml
 $ ansible-playbook step-3_copy-configs.yml
 ```
 
