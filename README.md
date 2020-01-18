@@ -70,6 +70,85 @@ $ ansible-playbook -C --tags flannel step-4_kubeadm.yml
 $ ansible-playbook --tags flannel step-4_kubeadm.yml
 ```
 
+# 確認。
+
+Master Node に root ユーザで SSH ログインする。
+
+```
+$ ssh root@10.0.3.181
+[root@k8s-m-05-01 ~]#
+```
+
+クラスタのノード構成確認。
+
+```
+[root@k8s-m-05-01 ~]# kubectl get nodes
+NAME          STATUS   ROLES    AGE   VERSION
+k8s-m-05-01   Ready    master   27m   v1.14.2
+k8s-w-05-01   Ready    <none>   26m   v1.14.2
+k8s-w-05-02   Ready    <none>   26m   v1.14.2
+k8s-w-05-03   Ready    <none>   26m   v1.14.2
+[root@k8s-m-05-01 ~]# kubectl describe nodes | grep Taint
+Taints:             node-role.kubernetes.io/master:NoSchedule
+Taints:             <none>
+Taints:             <none>
+Taints:             <none>
+```
+
+デモ ネームスペースの作成。
+
+```
+[root@k8s-m-05-01 ~]# kubectl create namespace demo-01
+namespace/demo-01 created
+```
+
+デモ アプリの起動。
+
+```
+[root@k8s-m-05-01 ~]# kubectl apply -f 03_demo/yelb.yaml -n demo-01
+service/redis-server created
+service/yelb-db created
+service/yelb-appserver created
+service/yelb-ui created
+deployment.extensions/yelb-ui created
+deployment.extensions/redis-server created
+deployment.extensions/yelb-db created
+deployment.extensions/yelb-appserver created
+```
+
+ノード ポート番号の確認。例では yelb-ui が 31872 番ポート。  
+Web ブラウザから ``` http:// Worker Node IP:31872 ``` にアクセスできる。
+
+```
+[root@k8s-m-05-01 ~]# kubectl get service -n demo-01
+NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+redis-server     ClusterIP   10.102.84.250    <none>        6379/TCP       56s
+yelb-appserver   ClusterIP   10.99.118.66     <none>        4567/TCP       56s
+yelb-db          ClusterIP   10.108.248.155   <none>        5432/TCP       56s
+yelb-ui          NodePort    10.104.37.233    <none>        80:31872/TCP   56s
+```
+
+デモ アプリの削除。
+
+```
+[root@k8s-m-05-01 ~]# kubectl delete -f 03_demo/yelb.yaml -n demo-01
+service "redis-server" deleted
+service "yelb-db" deleted
+service "yelb-appserver" deleted
+service "yelb-ui" deleted
+deployment.extensions "yelb-ui" deleted
+deployment.extensions "redis-server" deleted
+deployment.extensions "yelb-db" deleted
+deployment.extensions "yelb-appserver" deleted
+```
+
+デモ ネームスペースの削除。
+
+```
+[root@k8s-m-05-01 ~]# kubectl delete namespaces demo-01
+namespace "demo-01" deleted
+```
+
 # 参考
 
 Installing a Pod network add-on  
