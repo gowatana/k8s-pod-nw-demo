@@ -1,0 +1,14 @@
+---
+- name: setup os for k8s
+  import_playbook: step-1_os-base.yml
+  tags: always
+
+- name: setup firewall rules
+  import_playbook: step-2_firewall.yml
+
+- name: copy config files
+  import_playbook: step-3_copy-configs.yml
+
+- name: create k8s cluster with Pod Network add-on
+  import_playbook: step-4_kubeadm.yml
+
