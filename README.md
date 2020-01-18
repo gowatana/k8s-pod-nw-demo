@@ -1,8 +1,10 @@
-# k8s Pod Network を試す。
+# テンプレート VM の準備。
+
+OS
 
 * Oracle Linux 7 / CentOS 7
 
-Template VM
+Linux インストール後の、テンプレート VM の設定。
 
 ```
 # nmcli c mod ens192 connection.autoconnect yes
@@ -12,7 +14,7 @@ Template VM
 # init 0
 ```
 
-Ansible の準備。
+# 実行環境 Ansible / git の準備。
 
 ```
 ## Oracle Linux 7
@@ -21,6 +23,8 @@ Ansible の準備。
 ## CentOS 7
 # yum install -y ansible git
 ```
+
+# k8s のセットアップ。
 
 Ansible を実行するサーバに、Playbook などをダウンロード。
 
@@ -34,7 +38,6 @@ $ git clone https://github.com/gowatana/k8s-pod-nw-demo.git
 $ cd ./k8s-pod-nw-demo/
 $ cp inventory/hosts.template inventory/hosts
 $ vi inventory/hosts
-$ ssh-copy-id root@xxx.xxx.xxx.xxx
 $ ansible all -m ping
 ```
 
@@ -42,13 +45,29 @@ OS 設定と、docker / kubeadm　などのインストール。
 設定内容によっては、最後に OS が自動リブートされることあり。
 
 ```
-$ ansible-playbook setup_os.yml
+$ ansible-playbook -C step-1_os-base.yml
+$ ansible-playbook step-1_os-base.yml
 ```
 
-Kubernetes Master / Worker にするサーバにデモむけファイルを配置。
+OS Firewall 設定
 
 ```
-$ ansible-playbook copy_config_files.yml
+$ ansible-playbook -C --tags flannel step-2_firewall.yml
+$ ansible-playbook --tags flannel step-2_firewall.yml
+```
+
+Kubernetes Master Node / Worker Node にするサーバにデモむけファイルを配置。
+
+```
+$ ansible-playbook step-3_copy-configs.yml
+$ ansible-playbook step-3_copy-configs.yml
+```
+
+k8s クラスタ（Pod Network: flannel）の作成。
+
+```
+$ ansible-playbook -C --tags flannel step-4_kubeadm.yml
+$ ansible-playbook --tags flannel step-4_kubeadm.yml
 ```
 
 # 参考
