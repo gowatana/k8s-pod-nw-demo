@@ -2,6 +2,16 @@
 
 * Oracle Linux 7 / CentOS 7
 
+Template VM
+
+```
+# nmcli c mod ens192 connection.autoconnect yes
+# ssh-keygen -t rsa -f ~/.ssh/id_rsa -P ''
+# ssh-copy-id localhost
+# yum update -y
+# init 0
+```
+
 Ansible の準備。
 
 ```
