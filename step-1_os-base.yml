@@ -1,5 +1,5 @@
 ---
-- name: setup os for k8s
+- name: setup OS for k8s
   hosts: all
   remote_user: root
   tasks:
@@ -52,7 +52,7 @@
         - bash-completion
       state: latest
 
-  - name: disable firewalld
+  - name: enable firewalld
     service:
       name: firewalld
       enabled: true
@@ -124,37 +124,6 @@
       path: /root/.bash_profile
       line: 'source <(kubectl completion bash)'
 
-  - name: enable firewalld masquerade
-    firewalld:
-      masquerade: true
-      state: enabled
-      permanent: true
-      immediate: true
-
-  - name: open k8s firewall
-    firewalld:
-      port: "{{ item }}"
-      permanent: true
-      immediate: true
-      state: enabled
-    with_items:
-      - 6443/tcp
-      - 2379-2380/tcp
-      - 10250/tcp
-      - 10251/tcp
-      - 10252/tcp
-      - 30000-32767/tcp
-
-  - name: open flannel firewall
-    firewalld:
-      port: "{{ item }}"
-      permanent: true
-      immediate: true
-      state: enabled
-    with_items:
-      - 8285/udp
-      - 8472/udp
-
   - name: start docker
     service:
       name: kubelet
@@ -173,11 +142,6 @@
     command:
       cmd: systemctl daemon-reload
 
-  - name: restart_kubelet
-    yum:
-      name: kubelet
-      state: restarted
-
   - name: os_reboot
     command:
       cmd: reboot
@@ -191,4 +155,9 @@
       port: 22
       delay: 15
     delegate_to: localhost
+
+  - name: restart_kubelet
+    yum:
+      name: kubelet
+      state: restarted
 

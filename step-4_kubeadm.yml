@@ -6,32 +6,39 @@
 
   - name: kubeadm init
     shell: "kubeadm init --config /root/01_kubeadm/kubeadm-init-master.yml"
+    tags: always
 
   - name: create .kube dir
     file:
       path: /root/.kube
       state: directory
+    tags: always
 
   - name: set .kube/config
     command:
       cmd: cp /etc/kubernetes/admin.conf /root/.kube/config
+    tags: always
 
   - name: change owner .kube/config
     file:
       path: /root/.kube/config
       owner: root
       group: root
+    tags: always
 
   - name: generate discovery.yml
     shell: "kubectl -n kube-public get configmap cluster-info -o jsonpath='{.data.kubeconfig}' > /etc/kubernetes/discovery.yml"
+    tags: always
 
   - name: deploy flannel
     shell: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml"
+    tags: [ never, flannel ]
 
   - name: get discovery.yml
     command:
       cmd: "scp -o StrictHostKeyChecking=no root@{{ ansible_host }}:/etc/kubernetes/discovery.yml ./files/discovery.yml"
     delegate_to: localhost
+    tags: always
 
 
 - name: setup k8s worker node
@@ -43,7 +50,9 @@
     copy:
       src: ./files/discovery.yml
       dest: /etc/kubernetes/discovery.yml
+    tags: always
 
   - name: kubeadm join
     shell: "kubeadm join --config /root/01_kubeadm/kubeadm-init-worker.yml"
+    tags: always
 

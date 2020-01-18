@@ -35,10 +35,7 @@
       dest: /root/03_demo/
       src: "{{ item }}"
     with_items:
-      - files/03_demo/mongodb-storageclass.yaml
-      - files/03_demo/mongodb-key.txt
-      - files/03_demo/mongodb-service.yaml
-      - files/03_demo/mongodb-statefulset.yaml
+      - files/03_demo/yelb.yaml
 
 - name: copy sample files to kubernetes-worker
   hosts: kubernetes-worker

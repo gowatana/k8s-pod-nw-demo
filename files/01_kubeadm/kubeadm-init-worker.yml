@@ -9,6 +9,6 @@ discovery:
 kind: JoinConfiguration
 nodeRegistration:
   criSocket: /var/run/dockershim.sock
-  kubeletExtraArgs:
-    cloud-provider: external
+#  kubeletExtraArgs:
+#    cloud-provider: external
 

@@ -1,0 +1,61 @@
+---
+- name: firewall setup for k8s
+  hosts: all
+  remote_user: root
+
+  tasks:
+  - name: enable firewalld
+    service:
+      name: firewalld
+      enabled: true
+      state: started
+    tags: always
+
+  - name: enable firewalld masquerade
+    firewalld:
+      masquerade: true
+      state: enabled
+      permanent: true
+      immediate: true
+    notify:
+      - restart firewalld
+    tags: always
+
+  - name: open k8s firewall
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      immediate: true
+      state: enabled
+    with_items:
+      - 6443/tcp
+      - 2379-2380/tcp
+      - 10250/tcp
+      - 10251/tcp
+      - 10252/tcp
+      - 30000-32767/tcp
+    notify:
+      - restart firewalld
+    tags: always
+
+  - name: open flannel firewall
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      immediate: true
+      state: enabled
+    with_items:
+      - 8285/udp
+      - 8472/udp
+    notify:
+      - restart firewalld
+    tags: [ never, flannel ]
+
+
+  handlers:
+  - name: restart firewalld
+    service:
+      name: firewalld
+      enabled: true
+      state: restarted
+

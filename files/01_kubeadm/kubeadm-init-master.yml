@@ -9,9 +9,9 @@ bootstrapTokens:
   usages:
     - signing
     - authentication
-nodeRegistration:
-  kubeletExtraArgs:
-    cloud-provider: external
+#nodeRegistration:
+#  kubeletExtraArgs:
+#    cloud-provider: external
 
 ---
 apiVersion: kubeadm.k8s.io/v1beta1
