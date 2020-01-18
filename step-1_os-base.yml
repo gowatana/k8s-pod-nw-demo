@@ -87,6 +87,15 @@
     when:
       - ansible_distribution == "OracleLinux"
 
+  - name: install container-selinux rpms
+    yum:
+      name:
+        - container-selinux
+      state: installed
+      enablerepo: ol7_addons
+    when:
+      - ansible_distribution == "OracleLinux"
+
   - name: install docker rpms
     yum:
       name:
