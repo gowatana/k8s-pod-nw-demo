@@ -14,13 +14,13 @@
       - /root/03_demo
     tags: always
 
-  - name: copy files to 01_kubeadm for flannel
+  - name: copy files to 01_kubeadm for flannel and canal
     copy:
       dest: /root/01_kubeadm/
       src: "{{ item }}"
     with_items:
       - files/01_kubeadm/kubeadm-init-master.yml
-    tags: flannel
+    tags: [ flannel, canal ]
 
   - name: copy files to 01_kubeadm for calico
     copy:

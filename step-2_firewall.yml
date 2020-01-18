@@ -38,7 +38,7 @@
       - restart firewalld
     tags: always
 
-  - name: open flannel firewall
+  - name: open firewall for flannel and canal
     firewalld:
       port: "{{ item }}"
       permanent: true
@@ -49,9 +49,9 @@
       - 8472/udp
     notify:
       - restart firewalld
-    tags: [ never, flannel ]
+    tags: [ never, flannel, canal ]
 
-  - name: open calico firewall
+  - name: open firewall for calico and canal
     firewalld:
       port: "{{ item }}"
       permanent: true
@@ -63,7 +63,7 @@
       - 5473/tcp
     notify:
       - restart firewalld
-    tags: [ never, calico ]
+    tags: [ never, calico, canal ]
 
 
   handlers:
