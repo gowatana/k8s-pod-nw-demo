@@ -67,8 +67,8 @@ Kubernetes Master Node / Worker Node にファイルを配置。
 Flannel の場合
 
 ```
-$ ansible-playbook -C step-3_copy-configs.yml
-$ ansible-playbook step-3_copy-configs.yml
+$ ansible-playbook -C --tags flannel step-3_copy-configs.yml
+$ ansible-playbook --tags flannel step-3_copy-configs.yml
 ```
 
 Calico の場合
@@ -85,7 +85,7 @@ $ ansible-playbook -C --tags flannel step-4_kubeadm.yml
 $ ansible-playbook --tags flannel step-4_kubeadm.yml
 ```
 
-k8s クラスタ（Pod Network: flannel）の作成。
+k8s クラスタ（Pod Network: calico）の作成。
 
 ```
 $ ansible-playbook -C --tags calico step-4_kubeadm.yml
