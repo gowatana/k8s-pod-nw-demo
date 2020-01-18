@@ -51,6 +51,20 @@
       - restart firewalld
     tags: [ never, flannel ]
 
+  - name: open calico firewall
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      immediate: true
+      state: enabled
+    with_items:
+      - 179/tcp
+      - 4789/udp
+      - 5473/tcp
+    notify:
+      - restart firewalld
+    tags: [ never, calico ]
+
 
   handlers:
   - name: restart firewalld

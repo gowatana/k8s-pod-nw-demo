@@ -12,13 +12,21 @@
       - /root/01_kubeadm
       - /root/02_k8s-csi
       - /root/03_demo
+    tags: always
 
-  - name: copy files to 01_kubeadm
+  - name: copy files to 01_kubeadm for flannel
     copy:
       dest: /root/01_kubeadm/
       src: "{{ item }}"
     with_items:
       - files/01_kubeadm/kubeadm-init-master.yml
+    tags: flannel
+
+  - name: copy files to 01_kubeadm for calico
+    copy:
+      src: files/01_kubeadm/kubeadm-init-master_calico.yml
+      dest: /root/01_kubeadm/kubeadm-init-master.yml
+    tags: [ calico, never ]
 
   - name: copy files to 02_k8s-csi
     copy:
@@ -29,6 +37,7 @@
       - files/02_k8s-csi/csi-vsphere.conf
       - files/02_k8s-csi/csi-driver-rbac.yaml
       - files/02_k8s-csi/csi-driver-deploy.yaml
+    tags: always
 
   - name: copy files to 03_demo
     copy:
@@ -36,6 +45,7 @@
       src: "{{ item }}"
     with_items:
       - files/03_demo/yelb.yaml
+    tags: always
 
 - name: copy sample files to kubernetes-worker
   hosts: kubernetes-worker
@@ -48,6 +58,7 @@
       state: directory
     with_items:
       - /root/01_kubeadm
+    tags: always
 
   - name: copy files to 01_kubeadm
     copy:
@@ -55,4 +66,5 @@
       src: "{{ item }}"
     with_items:
       - files/01_kubeadm/kubeadm-init-worker.yml
+    tags: always
 
