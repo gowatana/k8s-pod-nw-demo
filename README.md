@@ -1,10 +1,10 @@
 # テンプレート VM の準備。
 
-OS
+## 想定 OS
 
 * Oracle Linux 7 / CentOS 7
 
-Linux インストール後の、テンプレート VM の設定。
+## Linux インストール後のテンプレート VM 設定。
 
 ```
 # nmcli c mod ens192 connection.autoconnect yes
@@ -13,6 +13,10 @@ Linux インストール後の、テンプレート VM の設定。
 # yum update -y
 # init 0
 ```
+
+## VM のクローン
+
+https://github.com/gowatana/deploy-k8s-demo-vms
 
 # 実行環境 Ansible / git の準備。
 
