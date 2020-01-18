@@ -169,6 +169,17 @@ deployment.extensions/yelb-db created
 deployment.extensions/yelb-appserver created
 ```
 
+Pod の起動確認。
+
+```
+[root@k8s-m-05-01 ~]# kubectl get pods -n demo-01
+NAME                              READY   STATUS    RESTARTS   AGE
+redis-server-6bd9dc4f99-lr5pb     1/1     Running   0          3m3s
+yelb-appserver-5fd98f7df7-587ts   1/1     Running   0          3m3s
+yelb-db-6569f794f4-6mwjd          1/1     Running   0          3m3s
+yelb-ui-57474ddfc4-stf9b          1/1     Running   0          3m3s
+```
+
 ノード ポート番号の確認。例では yelb-ui が 31872 番ポート。  
 Web ブラウザから ``` http:// Worker Node IP:31872 ``` にアクセスできる。
 
