@@ -49,14 +49,32 @@ $ ansible-playbook -C step-1_os-base.yml
 $ ansible-playbook step-1_os-base.yml
 ```
 
-OS Firewall 設定（flannel の場合）
+## Pod Network: flannel パターン
+
+OS Firewall 設定。
 
 ```
 $ ansible-playbook -C --tags flannel step-2_firewall.yml
 $ ansible-playbook --tags flannel step-2_firewall.yml
 ```
 
-OS Firewall 設定（Calico の場合）
+Kubernetes Master Node / Worker Node にファイルを配置。  
+
+```
+$ ansible-playbook -C --tags flannel step-3_copy-configs.yml
+$ ansible-playbook --tags flannel step-3_copy-configs.yml
+```
+
+k8s クラスタの作成。
+
+```
+$ ansible-playbook -C --tags flannel step-4_kubeadm.yml
+$ ansible-playbook --tags flannel step-4_kubeadm.yml
+```
+
+## Pod Network: Calico パターン
+
+OS Firewall 設定。
 
 ```
 $ ansible-playbook -C --tags calico step-2_firewall.yml
@@ -64,32 +82,41 @@ $ ansible-playbook --tags calico step-2_firewall.yml
 ```
 
 Kubernetes Master Node / Worker Node にファイルを配置。  
-Flannel の場合
-
-```
-$ ansible-playbook -C --tags flannel step-3_copy-configs.yml
-$ ansible-playbook --tags flannel step-3_copy-configs.yml
-```
-
-Calico の場合
 
 ```
 $ ansible-playbook -C --tags calico step-3_copy-configs.yml
 $ ansible-playbook --tags calico step-3_copy-configs.yml
 ```
 
-k8s クラスタ（Pod Network: flannel）の作成。
-
-```
-$ ansible-playbook -C --tags flannel step-4_kubeadm.yml
-$ ansible-playbook --tags flannel step-4_kubeadm.yml
-```
-
-k8s クラスタ（Pod Network: calico）の作成。
+k8s クラスタの作成。
 
 ```
 $ ansible-playbook -C --tags calico step-4_kubeadm.yml
 $ ansible-playbook --tags calico step-4_kubeadm.yml
+```
+
+## Pod Network: Canal パターン
+
+OS Firewall 設定。
+
+```
+$ ansible-playbook -C --tags canal step-2_firewall.yml
+$ ansible-playbook --tags canal step-2_firewall.yml
+```
+
+
+Kubernetes Master Node / Worker Node にファイルを配置。  
+
+```
+$ ansible-playbook -C --tags canal step-3_copy-configs.yml
+$ ansible-playbook --tags canal step-3_copy-configs.yml
+```
+
+k8s クラスタの作成。
+
+```
+$ ansible-playbook -C --tags canal step-4_kubeadm.yml
+$ ansible-playbook --tags canal step-4_kubeadm.yml
 ```
 
 # 確認。
