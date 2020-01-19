@@ -10,6 +10,7 @@
 # nmcli c mod ens192 connection.autoconnect yes
 # ssh-keygen -t rsa -f ~/.ssh/id_rsa -P ''
 # ssh-copy-id localhost
+# yum install -y open-vm-tools
 # yum update -y
 # init 0
 ```
