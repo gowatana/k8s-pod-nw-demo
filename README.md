@@ -124,6 +124,52 @@ $ ansible-playbook -C --tags canal step-4_kubeadm.yml
 $ ansible-playbook --tags canal step-4_kubeadm.yml
 ```
 
+## Pod Network: Antrea (VXLAN) パターン
+
+OS Firewall 設定。
+
+```
+$ ansible-playbook -C --tags antrea_vxlan step-2_firewall.yml
+$ ansible-playbook --tags antrea_vxlan step-2_firewall.yml
+```
+
+Kubernetes Master Node / Worker Node にファイルを配置。  
+
+```
+$ ansible-playbook -C --tags antrea_vxlan step-3_copy-configs.yml
+$ ansible-playbook --tags antrea_vxlan step-3_copy-configs.yml
+```
+
+k8s クラスタの作成。
+
+```
+$ ansible-playbook -C --tags antrea_vxlan step-4_kubeadm.yml
+$ ansible-playbook --tags antrea_vxlan step-4_kubeadm.yml
+```
+
+## Pod Network: Antrea (Geneve) パターン
+
+OS Firewall 設定。
+
+```
+$ ansible-playbook -C --tags antrea_geneve step-2_firewall.yml
+$ ansible-playbook --tags antrea_geneve step-2_firewall.yml
+```
+
+Kubernetes Master Node / Worker Node にファイルを配置。  
+
+```
+$ ansible-playbook -C --tags antrea_geneve step-3_copy-configs.yml
+$ ansible-playbook --tags antrea_geneve step-3_copy-configs.yml
+```
+
+k8s クラスタの作成。
+
+```
+$ ansible-playbook -C --tags antrea_geneve step-4_kubeadm.yml
+$ ansible-playbook --tags antrea_geneve step-4_kubeadm.yml
+```
+
 # 確認。
 
 Master Node に root ユーザで SSH ログインする。
