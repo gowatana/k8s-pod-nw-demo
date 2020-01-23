@@ -60,7 +60,7 @@
       dest: /root/03_demo/
       src: "{{ item }}"
     with_items:
-      - files/03_demo/yelb.yaml
+      - files/03_demo/yelb.yml
     tags: always
 
 - name: copy sample files to kubernetes-worker

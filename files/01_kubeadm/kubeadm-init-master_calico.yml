@@ -1,5 +1,5 @@
 ---
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 bootstrapTokens:
 - groups:
@@ -11,13 +11,13 @@ bootstrapTokens:
     - authentication
 
 ---
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-useHyperKubeImage: false
-kubernetesVersion: v1.14.2
+kubernetesVersion: v1.17.2
 networking:
   serviceSubnet: "10.96.0.0/12"
   podSubnet: "192.168.0.0/16"
+  dnsDomain: cluster.local
 etcd:
   local:
     imageRepository: "k8s.gcr.io"
