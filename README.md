@@ -131,6 +131,7 @@ $ ansible-playbook --tags antrea_vxlan step-3_copy-configs.yml
 
 k8s クラスタの作成。
 
+```
 $ ansible-playbook --tags antrea_vxlan step-4_kubeadm.yml
 ```
 
