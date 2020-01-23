@@ -22,6 +22,14 @@
       - files/01_kubeadm/kubeadm-init-master.yml
     tags: [ flannel, canal, antrea_vxlan, antrea_geneve ]
 
+  - name: copy files to 01_kubeadm for flannel and canal
+    copy:
+      dest: /root/01_kubeadm/
+      src: "{{ item }}"
+    with_items:
+      - files/01_kubeadm/kube-flannel.yml
+    tags: [ flannel ]
+
   - name: copy files to 01_kubeadm for calico
     copy:
       src: files/01_kubeadm/kubeadm-init-master_calico.yml
