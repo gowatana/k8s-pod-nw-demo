@@ -190,7 +190,7 @@ namespace/demo-01 created
 デモ アプリの起動。
 
 ```
-[root@k8s-m-05-01 ~]# kubectl apply -f 03_demo/yelb.yaml -n demo-01
+[root@k8s-m-05-01 ~]# kubectl -n demo-01 apply -f 03_demo/yelb.yaml
 service/redis-server created
 service/yelb-db created
 service/yelb-appserver created
@@ -204,7 +204,7 @@ deployment.extensions/yelb-appserver created
 Pod の起動確認。
 
 ```
-[root@k8s-m-05-01 ~]# kubectl get pods -n demo-01
+[root@k8s-m-05-01 ~]# kubectl -n demo-01 get pods
 NAME                              READY   STATUS    RESTARTS   AGE
 redis-server-6bd9dc4f99-lr5pb     1/1     Running   0          3m3s
 yelb-appserver-5fd98f7df7-587ts   1/1     Running   0          3m3s
@@ -216,7 +216,7 @@ yelb-ui-57474ddfc4-stf9b          1/1     Running   0          3m3s
 Web ブラウザから ``` http:// Worker Node IP:31872 ``` にアクセスできる。
 
 ```
-[root@k8s-m-05-01 ~]# kubectl get service -n demo-01
+[root@k8s-m-05-01 ~]# kubectl -n demo-01 get service
 NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 redis-server     ClusterIP   10.102.84.250    <none>        6379/TCP       56s
 yelb-appserver   ClusterIP   10.99.118.66     <none>        4567/TCP       56s
@@ -227,7 +227,7 @@ yelb-ui          NodePort    10.104.37.233    <none>        80:31872/TCP   56s
 デモ アプリの削除。
 
 ```
-[root@k8s-m-05-01 ~]# kubectl delete -f 03_demo/yelb.yaml -n demo-01
+[root@k8s-m-05-01 ~]# kubectl -n demo-01 delete -f 03_demo/yelb.yaml
 service "redis-server" deleted
 service "yelb-db" deleted
 service "yelb-appserver" deleted
@@ -251,3 +251,4 @@ Installing a Pod network add-on
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
 
 EOF
+
