@@ -65,6 +65,29 @@
       - restart firewalld
     tags: [ never, calico, canal ]
 
+  - name: open firewall for antrea vxlan
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      immediate: true
+      state: enabled
+    with_items:
+      - 4789/udp
+    notify:
+      - restart firewalld
+    tags: [ never, antrea_vxlan ]
+
+  - name: open firewall for antrea geneve
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      immediate: true
+      state: enabled
+    with_items:
+      - 6081/udp
+    notify:
+      - restart firewalld
+    tags: [ never, antrea_geneve ]
 
   handlers:
   - name: restart firewalld

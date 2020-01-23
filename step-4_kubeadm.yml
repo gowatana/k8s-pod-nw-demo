@@ -42,9 +42,13 @@
     shell: "kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml"
     tags: [ never, canal ]
 
-  - name: deploy antrea
-    shell: "kubectl apply -f https://github.com/vmware-tanzu/antrea/releases/download/v0.2.0/antrea.yml"
-    tags: [ never, antrea ]
+  - name: deploy antrea VXLAN
+    shell: "kubectl apply -f /root/01_kubeadm/antrea_vxlan.yml"
+    tags: [ never, antrea_vxlan ]
+
+  - name: deploy antrea Geneve
+    shell: "kubectl apply -f /root/01_kubeadm/antrea_geneve.yml"
+    tags: [ never, antrea_geneve ]
 
   - name: get discovery.yml
     command:

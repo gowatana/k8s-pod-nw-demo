@@ -28,6 +28,22 @@
       dest: /root/01_kubeadm/kubeadm-init-master.yml
     tags: [ calico, never ]
 
+  - name: copy files to antrea vxlan
+    copy:
+      dest: /root/01_kubeadm/
+      src: "{{ item }}"
+    with_items:
+      - files/01_kubeadm/antrea_vxlan.yml
+    tags: [ antrea_vxlan, never ]
+
+  - name: copy files to antrea geneve
+    copy:
+      dest: /root/01_kubeadm/
+      src: "{{ item }}"
+    with_items:
+      - files/01_kubeadm/antrea_geneve.yml
+    tags: [ antrea_geneve, never ]
+
   - name: copy files to 02_k8s-csi
     copy:
       dest: /root/02_k8s-csi/
