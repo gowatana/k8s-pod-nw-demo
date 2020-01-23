@@ -31,7 +31,7 @@
     tags: always
 
   - name: deploy flannel
-    shell: "kubectl apply -f /root/01_kubeadm/kube-flannel.yml"
+    shell: "kubectl apply -f /root/02_nw-addon/kube-flannel.yml"
     tags: [ never, flannel ]
 
   - name: deploy calico
@@ -43,11 +43,11 @@
     tags: [ never, canal ]
 
   - name: deploy antrea VXLAN
-    shell: "kubectl apply -f /root/01_kubeadm/antrea_vxlan.yml"
+    shell: "kubectl apply -f /root/02_nw-addon/antrea_vxlan.yml"
     tags: [ never, antrea_vxlan ]
 
   - name: deploy antrea Geneve
-    shell: "kubectl apply -f /root/01_kubeadm/antrea_geneve.yml"
+    shell: "kubectl apply -f /root/02_nw-addon/antrea_geneve.yml"
     tags: [ never, antrea_geneve ]
 
   - name: get discovery.yml
