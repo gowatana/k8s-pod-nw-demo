@@ -42,6 +42,10 @@
     shell: "kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml"
     tags: [ never, canal ]
 
+  - name: deploy antrea
+    shell: "kubectl apply -f https://github.com/vmware-tanzu/antrea/releases/download/v0.2.0/antrea.yml"
+    tags: [ never, antrea ]
+
   - name: get discovery.yml
     command:
       cmd: "scp -o StrictHostKeyChecking=no root@{{ ansible_host }}:/etc/kubernetes/discovery.yml ./files/discovery.yml"
