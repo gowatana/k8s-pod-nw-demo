@@ -59,21 +59,18 @@ $ ansible-playbook step-1_os-base.yml
 OS Firewall 設定。
 
 ```
-$ ansible-playbook -C --tags flannel step-2_firewall.yml
 $ ansible-playbook --tags flannel step-2_firewall.yml
 ```
 
 Kubernetes Master Node / Worker Node にファイルを配置。  
 
 ```
-$ ansible-playbook -C --tags flannel step-3_copy-configs.yml
 $ ansible-playbook --tags flannel step-3_copy-configs.yml
 ```
 
 k8s クラスタの作成。
 
 ```
-$ ansible-playbook -C --tags flannel step-4_kubeadm.yml
 $ ansible-playbook --tags flannel step-4_kubeadm.yml
 ```
 
@@ -82,21 +79,18 @@ $ ansible-playbook --tags flannel step-4_kubeadm.yml
 OS Firewall 設定。
 
 ```
-$ ansible-playbook -C --tags calico step-2_firewall.yml
 $ ansible-playbook --tags calico step-2_firewall.yml
 ```
 
 Kubernetes Master Node / Worker Node にファイルを配置。  
 
 ```
-$ ansible-playbook -C --tags calico step-3_copy-configs.yml
 $ ansible-playbook --tags calico step-3_copy-configs.yml
 ```
 
 k8s クラスタの作成。
 
 ```
-$ ansible-playbook -C --tags calico step-4_kubeadm.yml
 $ ansible-playbook --tags calico step-4_kubeadm.yml
 ```
 
@@ -105,7 +99,6 @@ $ ansible-playbook --tags calico step-4_kubeadm.yml
 OS Firewall 設定。
 
 ```
-$ ansible-playbook -C --tags canal step-2_firewall.yml
 $ ansible-playbook --tags canal step-2_firewall.yml
 ```
 
@@ -113,14 +106,12 @@ $ ansible-playbook --tags canal step-2_firewall.yml
 Kubernetes Master Node / Worker Node にファイルを配置。  
 
 ```
-$ ansible-playbook -C --tags canal step-3_copy-configs.yml
 $ ansible-playbook --tags canal step-3_copy-configs.yml
 ```
 
 k8s クラスタの作成。
 
 ```
-$ ansible-playbook -C --tags canal step-4_kubeadm.yml
 $ ansible-playbook --tags canal step-4_kubeadm.yml
 ```
 
@@ -129,21 +120,17 @@ $ ansible-playbook --tags canal step-4_kubeadm.yml
 OS Firewall 設定。
 
 ```
-$ ansible-playbook -C --tags antrea_vxlan step-2_firewall.yml
 $ ansible-playbook --tags antrea_vxlan step-2_firewall.yml
 ```
 
 Kubernetes Master Node / Worker Node にファイルを配置。  
 
 ```
-$ ansible-playbook -C --tags antrea_vxlan step-3_copy-configs.yml
 $ ansible-playbook --tags antrea_vxlan step-3_copy-configs.yml
 ```
 
 k8s クラスタの作成。
 
-```
-$ ansible-playbook -C --tags antrea_vxlan step-4_kubeadm.yml
 $ ansible-playbook --tags antrea_vxlan step-4_kubeadm.yml
 ```
 
@@ -152,21 +139,18 @@ $ ansible-playbook --tags antrea_vxlan step-4_kubeadm.yml
 OS Firewall 設定。
 
 ```
-$ ansible-playbook -C --tags antrea_geneve step-2_firewall.yml
 $ ansible-playbook --tags antrea_geneve step-2_firewall.yml
 ```
 
 Kubernetes Master Node / Worker Node にファイルを配置。  
 
 ```
-$ ansible-playbook -C --tags antrea_geneve step-3_copy-configs.yml
 $ ansible-playbook --tags antrea_geneve step-3_copy-configs.yml
 ```
 
 k8s クラスタの作成。
 
 ```
-$ ansible-playbook -C --tags antrea_geneve step-4_kubeadm.yml
 $ ansible-playbook --tags antrea_geneve step-4_kubeadm.yml
 ```
 
