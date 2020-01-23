@@ -20,7 +20,7 @@
       src: "{{ item }}"
     with_items:
       - files/01_kubeadm/kubeadm-init-master.yml
-    tags: [ flannel, canal, antrea ]
+    tags: [ flannel, canal, antrea_vxlan, antrea_geneve ]
 
   - name: copy files to 01_kubeadm for calico
     copy:
