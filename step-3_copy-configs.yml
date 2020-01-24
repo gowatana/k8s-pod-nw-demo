@@ -4,17 +4,17 @@
   remote_user: root
   tasks:
 
-  - name: create dir at master
+  - name: create directories on master
     file:
       path: "{{ item }}"
       state: directory
     with_items:
       - /root/01_kubeadm
-      - /root/02_k8s-csi
+      - /root/02_nw-addon
       - /root/03_demo
     tags: always
 
-  - name: copy files to 01_kubeadm for flannel and canal
+  - name: copy files for master node
     copy:
       dest: /root/01_kubeadm/
       src: "{{ item }}"
@@ -22,45 +22,42 @@
       - files/01_kubeadm/kubeadm-init-master.yml
     tags: [ flannel, canal, antrea_vxlan, antrea_geneve ]
 
-  - name: copy files to 01_kubeadm for calico
+  - name: copy files for calico master node
     copy:
       src: files/01_kubeadm/kubeadm-init-master_calico.yml
       dest: /root/01_kubeadm/kubeadm-init-master.yml
     tags: [ calico, never ]
 
-  - name: copy files to antrea vxlan
+  - name: copy files for flannel
     copy:
-      dest: /root/01_kubeadm/
+      dest: /root/02_nw-addon/
       src: "{{ item }}"
     with_items:
-      - files/01_kubeadm/antrea_vxlan.yml
+      - files/02_nw-addon/kube-flannel.yml
+    tags: [ flannel ]
+
+  - name: copy files to antrea vxlan
+    copy:
+      dest: /root/02_nw-addon/
+      src: "{{ item }}"
+    with_items:
+      - files/02_nw-addon/antrea_vxlan.yml
     tags: [ antrea_vxlan, never ]
 
   - name: copy files to antrea geneve
     copy:
-      dest: /root/01_kubeadm/
+      dest: /root/02_nw-addon/
       src: "{{ item }}"
     with_items:
-      - files/01_kubeadm/antrea_geneve.yml
+      - files/02_nw-addon/antrea_geneve.yml
     tags: [ antrea_geneve, never ]
-
-  - name: copy files to 02_k8s-csi
-    copy:
-      dest: /root/02_k8s-csi/
-      src: "{{ item }}"
-    with_items:
-      - files/02_k8s-csi/vsphere.conf
-      - files/02_k8s-csi/csi-vsphere.conf
-      - files/02_k8s-csi/csi-driver-rbac.yaml
-      - files/02_k8s-csi/csi-driver-deploy.yaml
-    tags: always
 
   - name: copy files to 03_demo
     copy:
       dest: /root/03_demo/
       src: "{{ item }}"
     with_items:
-      - files/03_demo/yelb.yaml
+      - files/03_demo/yelb.yml
     tags: always
 
 - name: copy sample files to kubernetes-worker

@@ -227,7 +227,7 @@ yelb-ui          NodePort    10.104.37.233    <none>        80:31872/TCP   56s
 デモ アプリの削除。
 
 ```
-[root@k8s-m-05-01 ~]# kubectl -n demo-01 delete -f 03_demo/yelb.yaml
+[root@k8s-m-05-01 ~]# kubectl -n demo-01 delete -f 03_demo/yelb.yml
 service "redis-server" deleted
 service "yelb-db" deleted
 service "yelb-appserver" deleted
