@@ -18,12 +18,4 @@ networking:
   serviceSubnet: "10.96.0.0/12"
   podSubnet: "192.168.0.0/16"
   dnsDomain: cluster.local
-etcd:
-  local:
-    imageRepository: "k8s.gcr.io"
-    imageTag: "3.3.10"
-dns:
-  type: "CoreDNS"
-  imageRepository: "k8s.gcr.io"
-  imageTag: "1.5.0"
 

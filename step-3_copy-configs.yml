@@ -11,7 +11,6 @@
     with_items:
       - /root/01_kubeadm
       - /root/02_nw-addon
-      - /root/03_demo
     tags: always
 
   - name: copy files for master node
