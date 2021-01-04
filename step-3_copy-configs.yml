@@ -23,8 +23,8 @@
     tags: [ flannel, canal, antrea_vxlan, antrea_geneve ]
 
   - name: copy files for calico master node
-    copy:
-      templates: templates/01_kubeadm/kubeadm-init-master_calico.yml
+    template:
+      src: templates/01_kubeadm/kubeadm-init-master_calico.yml
       dest: /root/01_kubeadm/kubeadm-init-master.yml
     tags: [ calico, never ]
 
@@ -51,14 +51,6 @@
     with_items:
       - files/02_nw-addon/antrea_geneve.yml
     tags: [ antrea_geneve, never ]
-
-  - name: copy files to 03_demo
-    copy:
-      dest: /root/03_demo/
-      src: "{{ item }}"
-    with_items:
-      - files/03_demo/yelb.yml
-    tags: always
 
 - name: copy sample files to kubernetes-worker
   hosts: kubernetes-worker

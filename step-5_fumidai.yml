@@ -34,3 +34,11 @@
       group: root
     tags: always
 
+  - name: copy files to 03_demo
+    copy:
+      dest: /root/03_demo/
+      src: "{{ item }}"
+    with_items:
+      - files/03_demo/yelb.yml
+    tags: always
+
