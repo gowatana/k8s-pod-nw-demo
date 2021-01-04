@@ -2,8 +2,6 @@
 - name: setup OS for k8s
   hosts: all
   remote_user: root
-  vars:
-  - k8s_ver: "1.17.2"
   tasks:
 
   - name: set hostname

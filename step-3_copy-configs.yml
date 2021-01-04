@@ -15,16 +15,16 @@
     tags: always
 
   - name: copy files for master node
-    copy:
-      dest: /root/01_kubeadm/
+    template:
       src: "{{ item }}"
+      dest: /root/01_kubeadm/
     with_items:
-      - files/01_kubeadm/kubeadm-init-master.yml
+      - templates/01_kubeadm/kubeadm-init-master.yml
     tags: [ flannel, canal, antrea_vxlan, antrea_geneve ]
 
   - name: copy files for calico master node
     copy:
-      src: files/01_kubeadm/kubeadm-init-master_calico.yml
+      templates: templates/01_kubeadm/kubeadm-init-master_calico.yml
       dest: /root/01_kubeadm/kubeadm-init-master.yml
     tags: [ calico, never ]
 
