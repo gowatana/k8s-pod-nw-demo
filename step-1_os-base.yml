@@ -75,10 +75,11 @@
     notify:
       - sysctl_reload
 
-  - name: get docker ce repo
-    get_url:
-      url: https://download.docker.com/linux/centos/docker-ce.repo
-      dest: /etc/yum.repos.d/
+  # https://download.docker.com/linux/centos/docker-ce.repo
+  - name: copy docker-ce repo
+    copy:
+      src: files/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
 
   - name: enable Oracle Linux ol7_addons repo
     ini_file:
