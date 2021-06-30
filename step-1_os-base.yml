@@ -16,6 +16,22 @@
     notify:
       - remove_swap
 
+  # https://download.docker.com/linux/centos/docker-ce.repo
+  - name: copy docker-ce repo
+    copy:
+      src: files/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+
+  - name: add k8s repo file
+    copy:
+      dest: /etc/yum.repos.d/kubernetes.repo
+      content: |
+        [kubernetes]
+        name=Kubernetes
+        baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+        enabled=1
+        gpgcheck=0
+
   - name: update rpms
     yum:
       name: '*'
@@ -73,11 +89,6 @@
     notify:
       - sysctl_reload
 
-  # https://download.docker.com/linux/centos/docker-ce.repo
-  - name: copy docker-ce repo
-    copy:
-      src: files/docker-ce.repo
-      dest: /etc/yum.repos.d/docker-ce.repo
 
   - name: enable Oracle Linux ol7_addons repo
     ini_file:
@@ -111,15 +122,6 @@
       enabled: true
       state: started
 
-  - name: add k8s repo file
-    copy:
-      dest: /etc/yum.repos.d/kubernetes.repo
-      content: |
-        [kubernetes]
-        name=Kubernetes
-        baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-        enabled=1
-        gpgcheck=0
 
   - name: install k8s rpms
     yum:
